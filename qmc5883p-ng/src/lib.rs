@@ -70,6 +70,35 @@ pub use qmc5883p_registers::{
 };
 pub use self_test::{SELF_TEST_WAIT_MS, SelfTest, SelfTestError};
 
+/// The sensor's coordinate frame: X, Y and Z as the driver delivers them after
+/// [`Qmc5883p::init`].
+///
+/// Datasheet QST-PD-B002-22 Rev E, section 3.1, figure 2 (page 5), seen on the top face
+/// with pin 1 at the top left: +X points left, +Y points towards the bottom edge. The
+/// diagonal Z arrow does not show whether +Z leaves the top face or enters the board. This
+/// alias takes +Z as up, which makes the axes right-handed: [`EastNorthUp`] with
+/// X = east, Y = north, Z = up.
+///
+/// **Unverified.** Besides the open direction of Z, the effect of writing `06h` to the axis
+/// sign register `29h` (done by [`Qmc5883p::init`]) is undefined; every setup example of the
+/// datasheet writes it first. To check on hardware, lay the board face-up after `init` in
+/// the northern hemisphere: Z should read negative (about -40 µT in central Europe). If Z
+/// reads positive, the frame is [`NorthEastDown`](coordinate_frame::NorthEastDown) instead.
+///
+/// ```
+/// use coordinate_frame::NorthEastDown;
+/// use qmc5883p_ng::SensorFrame;
+///
+/// let reading = [20.0_f32, -5.0, -40.0]; // e.g. from `read_microtesla`
+/// let ned: NorthEastDown<f32> = SensorFrame::from(reading).into();
+/// assert_eq!((ned.north(), ned.east(), ned.down()), (-5.0, 20.0, 40.0));
+/// ```
+///
+/// [`EastNorthUp`]: coordinate_frame::EastNorthUp
+#[cfg(feature = "coordinate-frame")]
+#[cfg_attr(docsrs, doc(cfg(feature = "coordinate-frame")))]
+pub type SensorFrame<T> = coordinate_frame::EastNorthUp<T>;
+
 use embedded_hal::delay::DelayNs;
 use embedded_hal::i2c::I2c;
 use qmc5883p_registers::prelude::*;

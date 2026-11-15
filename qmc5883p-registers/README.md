@@ -32,6 +32,7 @@ All facts come from the QST QMC5883P datasheet, document QST-PD-B002-22 Rev E (A
 | Modes: suspend (default after POR and soft reset), normal, single, continuous; suspend in between mode changes | QST-PD-B002-22 Rev E, sections 6 and 9.2.3 |
 | Sensitivity 1000, 2500, 3750, 15000 LSB/G for ±30, ±12, ±8, ±2 G | QST-PD-B002-22 Rev E, section 2.1, table 2 |
 | Axis sign register `29H`, written with `06H` | QST-PD-B002-22 Rev E, sections 7.1–7.3 (not in the register map) |
+| Axes on the top face: +X left, +Y towards the bottom edge (pin 1 top left); +Z drawn diagonally, up or down **unverified** (assumed up); effect of `06H` in `29H` on the axes undefined | QST-PD-B002-22 Rev E, section 3.1, figure 2 (page 5) |
 | Self-test procedure: continuous mode, `0BH` = `40H`, wait 5 ms, differences `x1-x2`, `y2-y1`, `z2-z1` | QST-PD-B002-22 Rev E, section 7.3 |
 | Self-test only in continuous mode, clears itself | QST-PD-B002-22 Rev E, sections 6.2.3 and 9.2.3, table 18 |
 | Power-on reset time 250 µs | QST-PD-B002-22 Rev E, section 5.3, table 7 |

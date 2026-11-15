@@ -28,6 +28,12 @@ The datasheet leaves some behavior open. The driver and the model assume:
 - **Register `29H`** is not in the register map. The setup and self-test examples
   (section 7) write `06H` to it "to define the sign for X Y and Z axis". The driver does
   the same in `init` and `self_test`; no other value is documented.
+- **Axis orientation** is unverified. Figure 2 (section 3.1, page 5) fixes +X (left) and
+  +Y (towards the bottom edge) on the top face, but its diagonal Z arrow does not show
+  whether +Z points up or down, and the effect of `06H` in `29H` is undefined. The
+  `coordinate-frame` feature takes +Z as up (`EastNorthUp`). Check: board face-up after
+  `init` in the northern hemisphere reads negative Z (about -40 µT in central Europe);
+  positive Z means `NorthEastDown`.
 - **Soft reset time** is not given. The driver waits the power-on reset time (250 µs).
 - **Self-test limits** are not given. The driver reports the differences and leaves the
   pass/fail decision to the application. It selects the ±30 G range for both samples, which

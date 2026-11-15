@@ -1,0 +1,23 @@
+[package]
+name = "qmc5883p-sim"
+description = "A behavioral model of the QST QMC5883P magnetometer for tests and emulation"
+publish = false
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[package.metadata.release]
+release = false
+
+[lints]
+workspace = true
+
+[dependencies]
+fake-bus.workspace = true
+qmc5883p-registers.workspace = true
+
+[dev-dependencies]
+embassy-futures.workspace = true

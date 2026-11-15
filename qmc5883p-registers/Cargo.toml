@@ -1,0 +1,33 @@
+[package]
+name = "qmc5883p-registers"
+description = "A typed map of the QST QMC5883P magnetometer registers"
+categories = ["embedded", "hardware-support", "no-std"]
+keywords = ["embedded-hal", "qmc5883p", "magnetometer", "i2c", "registers"]
+readme = "README.md"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[features]
+defmt = ["dep:defmt"]
+
+[lints]
+workspace = true
+
+[dependencies]
+bitfield-struct.workspace = true
+defmt = { workspace = true, optional = true }
+hardware-registers.workspace = true
+
+[package.metadata.release]
+tag = false
+pre-release-replacements = [
+    { file = "CHANGELOG.md", search = "## \\[Unreleased\\]", replace = "## [Unreleased]\n\n## [{{version}}] - {{date}}\n\n[{{version}}]: https://github.com/sunsided/qmc5883p/releases/tag/v{{version}}", exactly = 1 },
+]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]

@@ -1,0 +1,28 @@
+[workspace]
+# The crates.io name `qmc5883p` is taken; the driver in `qmc5883p-ng/` is published as `qmc5883p-ng`.
+resolver = "3"
+members = ["qmc5883p-registers", "qmc5883p-ng", "qmc5883p-sim"]
+exclude = ["sim/wokwi-chip", "examples"]
+
+[workspace.package]
+version = "0.1.0"
+authors = ["Markus Mayer <widemeadows@gmail.com>"]
+license = "EUPL-1.2 OR MIT OR Apache-2.0"
+repository = "https://github.com/sunsided/qmc5883p"
+edition = "2024"
+rust-version = "1.85"
+
+[workspace.lints.clippy]
+# Modules live in `folder.rs` plus `folder/`, never in `folder/mod.rs`.
+mod_module_files = "deny"
+
+[workspace.dependencies]
+bitfield-struct = "0.13.0"
+defmt = "1.0.1"
+embedded-hal = "1.0.0"
+embedded-hal-async = "1.0.0"
+embassy-futures = "0.1.2"
+fake-bus = "0.1.0"
+hardware-registers = "0.4.0"
+qmc5883p-registers = { path = "qmc5883p-registers", version = "0.1.0" }
+qmc5883p-sim = { path = "qmc5883p-sim" }

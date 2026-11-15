@@ -5,6 +5,10 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-15
+
+[0.1.1]: https://github.com/sunsided/qmc5883p/releases/tag/v0.1.1
+
 ### Added
 
 - `coordinate-frame` feature with the `SensorFrame` alias (`EastNorthUp`, unverified on

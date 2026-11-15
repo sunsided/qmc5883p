@@ -5,7 +5,7 @@ members = ["qmc5883p-registers", "qmc5883p-ng", "qmc5883p-sim"]
 exclude = ["sim/wokwi-chip", "examples"]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Markus Mayer <widemeadows@gmail.com>"]
 license = "EUPL-1.2 OR MIT OR Apache-2.0"
 homepage = "https://github.com/sunsided/qmc5883p"
@@ -26,5 +26,5 @@ embedded-hal-async = "1.0.0"
 embassy-futures = "0.1.2"
 fake-bus = "0.1.0"
 hardware-registers = "0.4.0"
-qmc5883p-registers = { path = "qmc5883p-registers", version = "0.1.0" }
+qmc5883p-registers = { path = "qmc5883p-registers", version = "0.1.1" }
 qmc5883p-sim = { path = "qmc5883p-sim" }

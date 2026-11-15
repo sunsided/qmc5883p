@@ -1,0 +1,10 @@
+{
+  "name": "qmc5883p",
+  "author": "Markus Mayer",
+  "pins": ["VCC", "GND", "SDA", "SCL"],
+  "controls": [
+    { "id": "fieldX", "label": "Field X (µT)", "type": "range", "min": -200, "max": 200, "step": 1 },
+    { "id": "fieldY", "label": "Field Y (µT)", "type": "range", "min": -200, "max": 200, "step": 1 },
+    { "id": "fieldZ", "label": "Field Z (µT)", "type": "range", "min": -200, "max": 200, "step": 1 }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "author": "Markus Mayer",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-c3-devkitm-1", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "chip-qmc5883p", "id": "mag1", "top": 20, "left": 200, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:3V3.1", "mag1:VCC", "red", [] ],
+    [ "esp:GND.1", "mag1:GND", "black", [] ],
+    [ "esp:4", "mag1:SDA", "green", [] ],
+    [ "esp:5", "mag1:SCL", "blue", [] ]
+  ],
+  "dependencies": {}
+}

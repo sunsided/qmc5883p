@@ -1,0 +1,52 @@
+name: Chip ID, self-test and heading
+version: 1
+author: Markus Mayer
+
+steps:
+  - wait-serial: 'QMC5883P ok chip_id=0x80'
+  - wait-serial: 'self-test dx=500 dy=500 dz=500 mG'
+  - wait-serial: 'running odr=50Hz range=8G'
+
+  # North.
+  - set-control:
+      part-id: mag1
+      control: fieldX
+      value: 30
+  - wait-serial: 'mag x=30.0 y=0.0 z=0.0 uT heading=0'
+
+  # East.
+  - set-control:
+      part-id: mag1
+      control: fieldX
+      value: 0
+  - set-control:
+      part-id: mag1
+      control: fieldY
+      value: 30
+  - wait-serial: 'mag x=0.0 y=30.0 z=0.0 uT heading=90'
+
+  # South.
+  - set-control:
+      part-id: mag1
+      control: fieldX
+      value: -30
+  - set-control:
+      part-id: mag1
+      control: fieldY
+      value: 0
+  - wait-serial: 'mag x=-30.0 y=0.0 z=0.0 uT heading=180'
+
+  # West, with a vertical component.
+  - set-control:
+      part-id: mag1
+      control: fieldX
+      value: 0
+  - set-control:
+      part-id: mag1
+      control: fieldY
+      value: -30
+  - set-control:
+      part-id: mag1
+      control: fieldZ
+      value: -45
+  - wait-serial: 'mag x=0.0 y=-30.0 z=-45.0 uT heading=270'

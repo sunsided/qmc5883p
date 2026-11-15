@@ -8,7 +8,6 @@
 //! advances with every byte read.
 
 #![deny(missing_docs)]
-#![deny(warnings)]
 #![no_std]
 #![forbid(unsafe_code)]
 // bitfield-struct generates `with_*_checked` setters that return `Result<_, ()>`.

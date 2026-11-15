@@ -217,3 +217,25 @@ fn async_driver() {
         let _bus = mag.release();
     });
 }
+
+#[cfg(feature = "coordinate-frame")]
+#[test]
+fn sensor_frame_conversion() {
+    use coordinate_frame::NorthEastDown;
+    use qmc5883p_ng::SensorFrame;
+    let model = RefCell::new(Qmc5883pModel::new());
+    model.borrow_mut().set_field(200, -50, -400);
+    let mut mag = Qmc5883p::new(FakeI2c::new(&model));
+    mag.init(&mut FakeDelay::new(&model)).unwrap();
+    mag.configure(Config {
+        mode: Mode::Single,
+        range: Range::Gauss30,
+        ..Config::default()
+    })
+    .unwrap();
+
+    let ned: NorthEastDown<f32> = SensorFrame::from(mag.read_microtesla().unwrap()).into();
+    assert_eq!(ned.north(), -5.0);
+    assert_eq!(ned.east(), 20.0);
+    assert_eq!(ned.down(), 40.0);
+}

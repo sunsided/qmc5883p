@@ -42,9 +42,28 @@ if mag.data_ready()? {
 The datasheet gives no self-test limits, so `self_test` returns the per-axis differences
 in milligauss and leaves the decision to the application.
 
+## Coordinate frame
+
+With the `coordinate-frame` feature, `SensorFrame<T>` is the sensor's frame as a
+[`coordinate-frame`](https://crates.io/crates/coordinate-frame) type, here `EastNorthUp`
+(X east, Y north, Z up, right-handed). Convert a reading into your board's frame:
+
+```rust,ignore
+use coordinate_frame::NorthEastDown;
+use qmc5883p_ng::SensorFrame;
+
+let ned: NorthEastDown<f32> = SensorFrame::from(mag.read_microtesla()?).into();
+```
+
+**Unverified:** datasheet figure 2 (section 3.1) fixes X and Y, but does not show whether
++Z points up or down, and the effect of the `06h` written to `29h` by `init` is undefined.
+To check, lay the board face-up after `init` in the northern hemisphere: Z should read
+negative (about -40 µT in central Europe). Positive Z means the frame is `NorthEastDown`.
+
 ## Features
 
 - `async`: adds `qmc5883p_ng::asynch::Qmc5883p` on `embedded-hal-async`.
+- `coordinate-frame`: adds the `SensorFrame` alias.
 - `defmt`: derives `defmt::Format` for the public types.
 
 The crates.io name `qmc5883p` belongs to an unrelated driver; this crate is published as

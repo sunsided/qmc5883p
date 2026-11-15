@@ -14,18 +14,21 @@ rust-version.workspace = true
 
 [features]
 async = ["dep:embedded-hal-async"]
-defmt = ["dep:defmt", "qmc5883p-registers/defmt"]
+coordinate-frame = ["dep:coordinate-frame"]
+defmt = ["dep:defmt", "qmc5883p-registers/defmt", "coordinate-frame?/defmt"]
 
 [lints]
 workspace = true
 
 [dependencies]
 qmc5883p-registers.workspace = true
+coordinate-frame = { workspace = true, optional = true }
 defmt = { workspace = true, optional = true }
 embedded-hal.workspace = true
 embedded-hal-async = { workspace = true, optional = true }
 
 [dev-dependencies]
+coordinate-frame.workspace = true
 embedded-hal.workspace = true
 qmc5883p-sim.workspace = true
 embassy-futures.workspace = true
